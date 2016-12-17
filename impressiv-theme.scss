@@ -1,0 +1,275 @@
+// Primary
+// --
+$orange: #FF6946;
+
+$red: #FF5253;
+$red-dark: #F53637;
+$red-light: #F47577;
+
+$green: #46FFBE;
+$green-dark: #5AC18B;
+$green-light: #EBFEF8;
+// $green-light: #DFFEEA;
+
+$white: #fff;
+$charcoal: #4F534E;
+
+// Grayscale
+// --
+$gray-darker: #757774;
+$gray-dark: #7D7E7C;
+
+$gray-darker-2: #4B4B55;
+$gray-dark-2: #5A5A64;
+$gray-light-2: #6E6E78;
+
+$gray-light: #C2C3C1;
+$gray-lighter: #DCDDDC;
+$gray-lightest: #EDEDED;
+
+// States
+// --
+$state-red: #FF5A5F;
+$state-green: #1BB243;
+
+$twitter-blue: #8989A4;
+// $twitter-blue: #6E6E78;
+// $twitter-blue: #1da1f3;
+
+/***************************************************/
+
+// Type
+// --
+@font-face {
+  font-family: 'Circular_reg';
+  src: url('assets/fonts/Circular_reg.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Circular_med';
+  src: url('assets/fonts/Circular_med.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Circular_bld';
+  src: url('assets/fonts/Circular_bld.ttf') format('truetype');
+}
+
+$font-base: 16px;
+$font-medium: $font-base * 1.125;
+$font-small: $font-base / 1.125;
+$font-large: $font-base * 1.5;
+$font-headline: $font-large * 1.5;
+
+$padding-horizontal: 20px;
+$padding-vertical: 15px;
+
+$btn-height: 55px;
+$btn-radius: 1px;
+$btn-shadow: 1px 2px 6px 1px rgba(0,0,0,.3);
+
+@mixin hoverTransition() {
+  transition: all 0.15s cubic-bezier(0, 0, .7, 1);
+}
+
+/***************************************************/
+
+// Buttons
+// --
+@mixin button($color: $red-light, $text_color: $white, $border-color: darken($red-light, 5%)) {
+  width: 165px;
+  height: 38px;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-family: 'Circular_med';
+  font-size: $font-base;
+  color: $text_color;
+  border-radius: 1px;
+  border: solid 1px $border-color;
+  background: $color;
+  outline: none;
+  user-select: none;
+  @include hoverTransition()
+  &:hover {
+    background: darken($color, 8%);
+    // border-color: darken($border-color, 10%);
+    box-shadow: $btn-shadow;
+  }
+  &:disabled {
+    background: lighten($color, 20%);
+    border-color: lighten($border-color, 20%);
+    cursor: not-allowed;
+  }
+}
+
+.btn-grp {
+  display: flex;
+  & * {
+    @include hoverTransition()
+  }
+}
+
+.btn-primary {
+  @include button()
+}
+
+.btn-alternate {
+  @include button($twitter-blue, $white, darken($twitter-blue, 3%))
+}
+
+.btn-default {
+  @include button($white, $charcoal, $gray-light)
+  &:hover {
+    background: darken($white, 5%);
+    border-color: darken($gray-light, 5%);
+  }
+}
+
+.btn-pulldown {
+  @extend .btn-default
+}
+
+.btn-pulldown {
+  width: 100%;
+  background: $gray-lightest;
+  border-color: transparent;
+  img {
+    opacity: 0.15;
+    @include hoverTransition()
+  }
+  &:hover {
+    border-color: transparent;
+    background: $green-light;
+    img {
+      opacity: 1;
+    }
+  }
+}
+
+.btn-options {
+  @extend .btn-default;
+  height: 105px;
+  min-width: 50px;
+  width: 50px;
+  padding: $padding-vertical 0;
+  background: $gray-lightest;
+  border-color: transparent;
+  .icon {
+    height: 25px;
+    min-width: 18px;
+    opacity: 0.15;
+    @include hoverTransition()
+  }
+  &:hover {
+    border-color: transparent;
+    background: darken($green-light, 5%) !important;
+    img {
+      opacity: 1;
+    }
+  }
+}
+
+/***************************************************/
+
+// Text
+// --
+@mixin textDescription() {
+ font-family: 'Circular_med';
+ font-size: 14px;
+ color: $gray-light;
+}
+
+@mixin textLabel() {
+  font-family: 'Circular_bld';
+  font-size: 12px;
+  color: $gray-light;
+  text-transform: uppercase;
+}
+
+::selection {
+  background: lighten($red-light, 20%); /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: lighten($red-light, 20%); /* Gecko Browsers */
+}
+
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+  // For Google Chrome
+  ::-webkit-scrollbar {
+      width:  $size;
+      height: $size;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      background: $foreground-color;
+  }
+
+  ::-webkit-scrollbar-track {
+      background: $background-color;
+  }
+
+  // For Internet Explorer
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+
+@include scrollbars(3px, $gray-light);
+
+/***************************************************/
+
+// Spinner
+// --
+.loading {
+  border-bottom: 4px solid rgba(0, 0, 0, .1);
+  border-left: 4px solid rgba(0, 0, 0, .1);
+  border-right: 4px solid rgba(0, 0, 0, .1);
+  border-top: 4px solid rgba(0, 0, 0, .4);
+  border-radius: 100%;
+  height: 15px;
+  width: 15px;
+  margin-left: auto;
+  align-self: center;
+  animation: rot .6s infinite linear;
+}
+@keyframes rot {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(359deg);}
+}
+
+/***************************************************/
+
+// Theme Styling
+// --
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: 'Circular_reg', 'sans-serif';
+  font-size: $font-base;
+  font-weight: 300;
+  color: $charcoal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app,
+div[data-reactroot] {
+  height: 100%;
+}
+
+a {
+  color: $twitter-blue;
+  text-decoration: none;
+  @include hoverTransition()
+  &:visited,
+  &:hover {
+    color: darken($twitter-blue, 20%);
+  }
+}
+
+/***************************************************/
+
+@import 'containers/containers';
+@import 'components/components';
